@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using React.AspNet;
+using JavaScriptEngineSwitcher.Core;
+using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.Jint;
 
 namespace CSGO_Event_Recorder
 {
@@ -51,6 +54,10 @@ namespace CSGO_Event_Recorder
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var engineSwitcher = JsEngineSwitcher.Instance;
+            engineSwitcher.DefaultEngineName = "Jint";
+            engineSwitcher.EngineFactories.AddJint();
 
             // Initialise ReactJS.NET. Must be before static files.
             app.UseReact(config =>
