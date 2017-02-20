@@ -26,6 +26,10 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `event`
 --
 
+CREATE DATABASE IF NOT EXISTS csgo;
+
+USE 'csgo';
+
 CREATE TABLE `event` (
   `ID` int(11) NOT NULL,
   `Name` varchar(45) NOT NULL,
