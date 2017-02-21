@@ -92,5 +92,33 @@ namespace CSGO_Event_Recorder.Model
             return organizer;
         }
 
+        public List<Organizer> SelectAllOranizer()
+        {
+            List<Organizer> organizer = new List<Organizer>();
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+                    command.CommandText = "SELECT * FROM organizer";
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            organizer.Add(new Organizer()
+                            {
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Name"),
+                                Logo = reader.GetString("Logo")
+                            });
+                        }
+                    }
+                }
+            }
+            return organizer;
+        }
+
     }
 }

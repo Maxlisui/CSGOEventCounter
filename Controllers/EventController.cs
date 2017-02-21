@@ -1,3 +1,4 @@
+using CSGO_Event_Recorder.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CSGO_Event_Recorder.Controllers
@@ -7,6 +8,12 @@ namespace CSGO_Event_Recorder.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Route("/event/organizer")]
+        public IActionResult Organizer()
+        {
+            return Json(DBConnector.Instance.SelectAllOranizer());
         }
 
         [Route("/event/new")]

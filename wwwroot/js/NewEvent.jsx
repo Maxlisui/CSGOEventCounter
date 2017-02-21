@@ -4,8 +4,30 @@ var MainPage = React.createClass({
             name:  "",
             date: "",
             venue: "",
-            organizerId: 0
+            organizerId: 0,
+            organizer: []
         };
+    },
+    loadOrganizerFromServer: function(){
+      var xhr = new XMLHttpRequest();
+		xhr.open('get', this.props.url, true);
+		xhr.onload = function () {
+			var data = JSON.parse(xhr.responseText);
+			this.setState({ organizer: data });
+		}.bind(this);
+		xhr.send();  
+    },
+    componentDidMount: function () {
+		window.setInterval(this.loadOrganizerFromServer, this.props.pollInterval);
+	},
+    handleNameChange: function(e){
+        this.setState({name: e.target.value});
+    },
+    handleDateChange: function(e){
+        this.setState({date: e.target.value});
+    },
+    handleVenueChange: function(e){
+        this.setState({venue: e.target.value});
     },
     render: function(){
         return (
@@ -18,19 +40,42 @@ var MainPage = React.createClass({
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Name</label>
                                     <div className="col-lg-10">
-                                        <input type="text" className="form-control" placeholder="Name" value={this.state.name} />
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            placeholder="Name" 
+                                            value={this.state.name}
+                                            onChange={this.handleNameChange} 
+                                        />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Date</label>
                                     <div className="col-lg-10">
-                                        <input type="date" className="form-control" placeholder="Date" value={this.state.name} />
+                                        <input type="date" 
+                                            className="form-control" 
+                                            placeholder="Date" 
+                                            value={this.state.date}
+                                            onChange={this.handleDateChange}
+                                         />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Venue</label>
                                     <div className="col-lg-10">
-                                        <input type="text" className="form-control" placeholder="Venue" value={this.state.name} />
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            placeholder="Venue" 
+                                            value={this.state.venue} 
+                                            onChange={this.handleVenueChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label className="col-lg-2 control-label">Organizer</label>
+                                    <div className="col-lg-10">
+                                        <OptionList organizer={this.state.organizer.name} />
                                     </div>
                                 </div>
                             </fieldset>
@@ -42,7 +87,22 @@ var MainPage = React.createClass({
     }
 });
 
+var OptionList = React.createClass({
+    render: function(){
+        var optionNodes = this.props.organizer.map(function(organizer){
+            return (
+                <option value={this.props.organizer}></option>
+            );
+        });
+        return (
+            <select className="form-control">
+                {optionNodes}
+            </select>
+        )
+    }
+});
+
 ReactDOM.render(
-    <MainPage />,
+    <MainPage url="/event/organizer" pollInterval={1000} />,
     document.getElementById('content')
 )
