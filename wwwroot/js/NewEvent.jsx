@@ -75,7 +75,7 @@ var MainPage = React.createClass({
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Organizer</label>
                                     <div className="col-lg-10">
-                                        <OptionList organizer={this.state.organizer.name} />
+                                        <OptionList organizer={this.state.organizer} />
                                     </div>
                                 </div>
                             </fieldset>
@@ -91,7 +91,7 @@ var OptionList = React.createClass({
     render: function(){
         var optionNodes = this.props.organizer.map(function(organizer){
             return (
-                <option value={this.props.organizer}></option>
+                <option>{this.props.organizer.name}</option>
             );
         });
         return (
