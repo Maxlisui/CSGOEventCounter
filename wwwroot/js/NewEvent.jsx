@@ -29,13 +29,16 @@ var MainPage = React.createClass({
     handleVenueChange: function(e){
         this.setState({venue: e.target.value});
     },
+    handleEventSubmit: function(e){
+        e.preventDefault();
+    },
     render: function(){
         return (
             <div className="row">
                 <div className="col-lg-12">
                     <h1>Create a new Event</h1>
                     <div className="well bs-component">
-                        <form className="form-horizontal">
+                        <form className="form-horizontal" onSubmit={this.handleEventSubmit}>
                             <fieldset>
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Name</label>
@@ -78,6 +81,11 @@ var MainPage = React.createClass({
                                         <OptionList organizer={this.state.organizer} />
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <div className="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" className="btn btn-primary center-block">Submit</button>
+                                    </div>
+                                </div>
                             </fieldset>
                         </form>
                     </div>
@@ -91,7 +99,7 @@ var OptionList = React.createClass({
     render: function(){
         var optionNodes = this.props.organizer.map(function(organizer){
             return (
-                <option>{this.props.organizer.name}</option>
+                <option key={organizer.id} >{organizer.name}</option>
             );
         });
         return (

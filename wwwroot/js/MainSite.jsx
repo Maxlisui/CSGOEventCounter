@@ -54,7 +54,9 @@ var NewEvent = React.createClass({
         return(
             <div className="col-sm-6 col-md-3">
                 <div className="thumbnail">
-                    <img style={imgStyle} src="http://iconshow.me/media/images/Mixed/Free-Flat-UI-Icons/png/512/plus-24-512.png" />
+                    <img style={imgStyle} 
+                        src="http://iconshow.me/media/images/Mixed/Free-Flat-UI-Icons/png/512/plus-24-512.png"
+                    />
                     <div className="caption">
                         <p><a href="/event/new" className="btn btn-success center-block" role="button">New Event</a></p>
                     </div>
