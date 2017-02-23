@@ -21,5 +21,13 @@ namespace CSGO_Event_Recorder.Controllers
         {
             return View();
         }
+
+        [Route("/event/add")]
+        [HttpPost]
+        public IActionResult Add(Event e)
+        {
+            return Content("Hans");
+        }
+
     }
 }

@@ -4,7 +4,7 @@ var MainPage = React.createClass({
             name:  "",
             date: "",
             venue: "",
-            organizerId: 0,
+            organizerID: 0,
             organizer: []
         };
     },
@@ -31,6 +31,29 @@ var MainPage = React.createClass({
     },
     handleEventSubmit: function(e){
         e.preventDefault();
+        var name = this.state.name.trim();
+        var date = this.state.date.trim();
+        var venue = this.state.venue.trim();
+        var organizerID = this.state.organizerID.trim();
+        if(!name || !date || !venue || !organizerID){
+            return;
+        }
+        var data = new FormData();
+        data.append('name', name);
+        data.append('date', date);
+        data.append('venue', venue);
+        data.append('organizerID', organizerID);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', "/event/add", true);
+        xhr.onload = function() {
+            this.loadOrganizerFromServer();
+        }.bind(this);
+        xhr.send(data);
+    },
+    handleOrganizerChange: function(e){
+        e.preventDefault();
+        this.setState({organizerID = e.target.value});
     },
     render: function(){
         return (
@@ -78,7 +101,7 @@ var MainPage = React.createClass({
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Organizer</label>
                                     <div className="col-lg-10">
-                                        <OptionList organizer={this.state.organizer} />
+                                        <OptionList organizer={this.state.organizer} handler={this.handleOrganizerChange}/>
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -99,11 +122,11 @@ var OptionList = React.createClass({
     render: function(){
         var optionNodes = this.props.organizer.map(function(organizer){
             return (
-                <option key={organizer.id} >{organizer.name}</option>
+                <option key={organizer.id} value={organizer.id}>{organizer.name}</option>
             );
         });
         return (
-            <select className="form-control">
+            <select className="form-control" onChange={this.props.handler}> 
                 {optionNodes}
             </select>
         )
