@@ -24,7 +24,8 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
     "React.AspNet": "3.0.1",
     "MySql.Data": "7.0.6-ir31",
-    "JavaScriptEngineSwitcher.Jint": "2.3.0"
+    "JavaScriptEngineSwitcher.Jint": "2.3.0",
+    "PusherServer": "4.0.0-rc1"
   },
   "tools": {
     "BundlerMinifier.Core": "2.2.306",

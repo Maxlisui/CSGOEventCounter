@@ -34,10 +34,11 @@ var MainPage = React.createClass({
         var name = this.state.name.trim();
         var date = this.state.date.trim();
         var venue = this.state.venue.trim();
-        var organizerID = this.state.organizerID.trim();
-        if(!name || !date || !venue || !organizerID){
+        var organizerID = this.state.organizerID;
+        if(!name || !date || !venue){
             return;
         }
+        
         var data = new FormData();
         data.append('name', name);
         data.append('date', date);
@@ -53,7 +54,7 @@ var MainPage = React.createClass({
     },
     handleOrganizerChange: function(e){
         e.preventDefault();
-        this.setState({organizerID = e.target.value});
+        this.setState({organizerID: e.target.value});
     },
     render: function(){
         return (
@@ -61,7 +62,7 @@ var MainPage = React.createClass({
                 <div className="col-lg-12">
                     <h1>Create a new Event</h1>
                     <div className="well bs-component">
-                        <form className="form-horizontal" onSubmit={this.handleEventSubmit}>
+                        <form className="form-horizontal" onSubmit={this.handleEventSubmit} >
                             <fieldset>
                                 <div className="form-group">
                                     <label className="col-lg-2 control-label">Name</label>
