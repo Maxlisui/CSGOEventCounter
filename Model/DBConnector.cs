@@ -30,6 +30,27 @@ namespace CSGO_Event_Recorder.Model
 
         private DBConnector() {}
 
+        public void InsertEvent(Event e)
+        {
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+                    command.CommandText = "INSERT INTO event VALUES (@id, @name, @date, @venue, @organizer)";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@id", e.Id);
+                    command.Parameters.AddWithValue("@name", e.Name);
+                    command.Parameters.AddWithValue("@date", e.Date);
+                    command.Parameters.AddWithValue("@venue", e.Venue);
+                    command.Parameters.AddWithValue("@organizer", e.OrganizerID);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public List<Event> SelectAllEvents()
         {
             List<Event> events = new List<Event>();
