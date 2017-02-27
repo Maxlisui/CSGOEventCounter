@@ -8,10 +8,68 @@
         integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous">
 </head>
 <body>
-    <div id="content" class="container"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
-    <script src="@Url.Content("~/js/NewEvent.jsx")"></script>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Create a new Event</h1>
+                <div class="well bs-component">
+                    @using(Html.BeginForm("Add", "Event", FormMethod.Post, new { @class="form-horizontal" }))
+                    {
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Name</label>
+                                <div class="col-lg-10">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        placeholder="Name" 
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Date</label>
+                                <div class="col-lg-10">
+                                    <input type="date" 
+                                        class="form-control" 
+                                        placeholder="Date" 
+                                        />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Venue</label>
+                                <div class="col-lg-10">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        placeholder="Venue" 
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Organizer</label>
+                                <div class="col-lg-10">
+                                @if(ViewBag.AllOrganizer != null)
+                                {
+                                    <select class="form-control">
+                                            @foreach(var o in ViewBag.AllOrganizer)
+                                            {
+                                                <option>@o.Name</option>
+                                            }
+                                        
+                                    </select>
+                                }
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="submit" class="btn btn-primary center-block">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -11,13 +11,8 @@ namespace CSGO_Event_Recorder.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.AllEvents = DBConnector.Instance.SelectAllEvents();
             return View();
-        }
-
-        [Route("events")]
-        public IActionResult Events()
-        {
-            return Json(DBConnector.Instance.SelectAllEvents());
         }
     }
 }

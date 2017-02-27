@@ -10,23 +10,15 @@ namespace CSGO_Event_Recorder.Controllers
             return View();
         }
 
-        [Route("/event/organizer")]
-        public IActionResult Organizer()
-        {
-            return Json(DBConnector.Instance.SelectAllOranizer());
-        }
-
-        [Route("/event/new")]
         public IActionResult New()
         {
+            ViewBag.AllOrganizer = DBConnector.Instance.SelectAllOranizer();
             return View();
         }
 
-        [Route("/event/add")]
-        [HttpPost]
         public string Add(Event e)
         {
-            return "RequestResult";
+            return "Anderes Hans";
         }
     }
 }

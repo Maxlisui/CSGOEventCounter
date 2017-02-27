@@ -21,9 +21,9 @@ var MainPage = React.createClass({
 	},
     render: function(){
         return (
-            <div className="row">
-                <div className="col-lg-12">
-                    <div className="page-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header">
                         <h1 classID="typography">Counter Strinke: Gloabl Offensive Event Counter</h1>
                     </div>
                     <EventList data={this.state.events}/>
@@ -52,13 +52,13 @@ var EventList = React.createClass({
 var NewEvent = React.createClass({
     render: function(){
         return(
-            <div className="col-sm-6 col-md-3">
-                <div className="thumbnail">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
                     <img style={imgStyle} 
                         src="http://iconshow.me/media/images/Mixed/Free-Flat-UI-Icons/png/512/plus-24-512.png"
                     />
-                    <div className="caption">
-                        <p><a href="/event/new" className="btn btn-success center-block" role="button">New Event</a></p>
+                    <div class="caption">
+                        <p><a href="/event/new" class="btn btn-success center-block" role="button">New Event</a></p>
                     </div>
                 </div>
             </div>
@@ -69,15 +69,15 @@ var NewEvent = React.createClass({
 var Event = React.createClass({
     render: function(){
         return (
-            <div className="col-sm-6 col-md-3">
-                <div className="thumbnail">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
                     <img style={imgStyle} src={this.props.organizer.logo} />
-                    <div className="caption">
+                    <div class="caption">
                         <h3>{this.props.name}</h3>
                         <p>Venue: {this.props.venue}</p>
                         <p>Date: {this.props.date}</p>
                         <p>Organizer: {this.props.organizer.name}</p>
-                        <p><a href="#" className="btn btn-success center-block" role="button">Choose</a></p>
+                        <p><a href="#" class="btn btn-success center-block" role="button">Choose</a></p>
                     </div>
                 </div>
             </div>
