@@ -27,5 +27,13 @@ namespace CSGO_Event_Recorder.Controllers
 
             return Redirect("/Event/?Id=" + eventId);
         }
+
+        public IActionResult Details(int id)
+        {
+            ViewBag.TeamDetail = DBConnector.Instance.SelectTeamFromId(id);
+            ViewBag.AllMaps = DBConnector.Instance.SelectAllMaps();
+
+            return View();
+        }
     }
 }
