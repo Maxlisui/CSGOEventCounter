@@ -6,8 +6,10 @@ namespace CSGO_Event_Recorder.Controllers
 {
     public class EventController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
+            ViewBag.CurrentEvent = DBConnector.Instance.SelectEventFromId(id);
+            ViewBag.TeamsInCurrentEvent = DBConnector.Instance.SelectAllTeamsFromEventId(id);
             return View();
         }
 

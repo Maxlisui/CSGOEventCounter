@@ -1,0 +1,53 @@
+@{
+    Layout = null;
+    string imgStyle = "height: 242, width: 200";
+}
+<html>
+<head>
+    <title>Event Recorder</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous">
+</head>
+<body>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @if(ViewBag.CurrentEvent != null)
+                {
+                    <h1>@ViewBag.CurrentEvent.Name Overview</h1>
+                    <div class="col-lg-4">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-info">Date: @ViewBag.CurrentEvent.Date</li>
+                            <li class="list-group-item list-group-item-info">Venue: @ViewBag.CurrentEvent.Venue</li>
+                            <li class="list-group-item list-group-item-info">Organizer: @ViewBag.CurrentEvent.Organizer.Name</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-12">
+                        @foreach(var t in ViewBag.TeamsInCurrentEvent)
+                        {
+                            <div class="col-sm-7 col-md-3">
+                                <div class="thumbnail">
+                                    <img style=@imgStyle src=@t.Logo />
+                                    <div class="caption">
+                                        <h3>@t.Name</h3>
+                                        <p>Country: @t.Country</p>
+                                        <p><a href="#" class="btn btn-success center-block" role="button">Details</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-sm-7 col-md-3">
+                            <div class="thumbnail">
+                                <img style=@imgStyle src="http://iconshow.me/media/images/Mixed/Free-Flat-UI-Icons/png/512/plus-24-512.png" />
+                                <div class="caption">
+                                    <p><a href="/Team/NewToEvent?Id=@ViewBag.CurrentEvent.Id" class="btn btn-success center-block" role="button">Add Team</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

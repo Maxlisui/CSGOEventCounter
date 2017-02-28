@@ -141,5 +141,152 @@ namespace CSGO_Event_Recorder.Model
             return organizer;
         }
 
+        public Event SelectEventFromId(int id)
+        {
+            Event e = null;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT * from event WHERE Id = @Id";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@Id", id);       
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            e = new Event()
+                            {
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Name"),
+                                Date = reader.GetDateTime("Date").ToString("d"),
+                                Venue = reader.GetString("Venue"),
+                                OrganizerID = reader.GetInt32("Organizer"),
+                                Organizer = SelectOrganizerFromId(reader.GetInt32("Organizer")) ?? new Organizer()
+
+                            };
+                        }
+                    }
+                }
+            }
+            return e;
+        }
+        public List<Team> SelectAllTeamsFromEventId(int id)
+        {
+            List<Team> teams = new List<Team>();
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT DISTINCT team.Id, team.Name, team.logo, team.Country FROM  team join team_on_event on (TeamID = ID)" 
+                        + "join event on (EventID = event.ID) where event.ID = @Id";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            teams.Add(new Team(){
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Name"),
+                                Logo = reader.GetString("Logo"),
+                                Country = reader.GetString("Country")
+                            });
+                        }
+                    }
+                }
+            }
+            return teams;
+        }
+
+        public Team SelectTeamFromId(int id)
+        {
+            Team team = new Team();
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+                    
+                    command.CommandText = "SELECT * FROM team WHERE Id = @Id";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@Id", id);
+                    
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            team = new Team(){
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Name"),
+                                Logo = reader.GetString("Logo"),
+                                Country = reader.GetString("Country")
+                            };
+                        }
+                    }
+                }
+            }
+            return team;
+        }
+
+        public List<Team> SelectAllTeams()
+        {
+            List<Team> teams = new List<Team>();
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+                    
+                    command.CommandText = "SELECT * FROM team";
+                    
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            teams.Add(new Team(){
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Name"),
+                                Logo = reader.GetString("Logo"),
+                                Country = reader.GetString("Country")
+                            });
+                        }
+                    }
+                }
+            }
+            return teams;
+        }
+
+        public void InsertTeamToEvent(int teamId, int eventId)
+        {
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "INSERT INTO team_on_event VALUES(@teamId, @eventId)";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@teamId", teamId);
+                    command.Parameters.AddWithValue("@eventId", eventId);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

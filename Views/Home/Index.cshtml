@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header">
-                    <h1 id="typography">Counter Strinke: Gloabl Offensive Event Counter</h1>
+                    <h1 id="typography">Counter Strinke: Global Offensive Event Counter</h1>
                 </div>
                 @if(ViewBag.AllEvents != null)
                 {
@@ -27,7 +27,7 @@
                                     <p>Venue: @e.Venue</p>
                                     <p>Date: @e.Date</p>
                                     <p>Organizer: @e.Organizer.Name</p>
-                                    <p><a href="#" class="btn btn-success center-block" role="button">Choose</a></p>
+                                    <p><a href="/event/?id=@e.Id" class="btn btn-success center-block" role="button">Choose</a></p>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                 }
                 <div class="col-sm-7 col-md-3">
                     <div class="thumbnail">
-                        <img style={imgStyle} 
+                        <img style=@imgStyle 
                             src="http://iconshow.me/media/images/Mixed/Free-Flat-UI-Icons/png/512/plus-24-512.png"
                         />
                         <div class="caption">
