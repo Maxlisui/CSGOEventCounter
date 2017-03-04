@@ -315,6 +315,294 @@ namespace CSGO_Event_Recorder.Model
                 }
             }
             return maps;
-        } 
+        }
+
+        public int SelectAttackedOnA(int teamId, int mapId)
+        {
+            int amount = 0;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT SUM(Team1_Attacked_A) from `match` where Team1 = @team1 AND Map = @map1";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team1", teamId);
+                    command.Parameters.AddWithValue("map1", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    command.CommandText = "SELECT SUM(Team2_Attacked_A) from `match` where Team2 = @team2 AND Map = @map2";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team2", teamId);
+                    command.Parameters.AddWithValue("@map2", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return amount;
+        }
+
+        public int SelectAttackedOnB(int teamId, int mapId)
+        {
+            int amount = 0;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT SUM(Team1_Attacked_B) from `match` where Team1 = @team1 AND Map = @map1";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team1", teamId);
+                    command.Parameters.AddWithValue("map1", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    command.CommandText = "SELECT SUM(Team2_Attacked_B) from `match` where Team2 = @team2 AND Map = @map2";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team2", teamId);
+                    command.Parameters.AddWithValue("@map2", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return amount;
+        }
+
+        public int SelectAttackedOnASuccess(int teamId, int mapId)
+        {
+            int amount = 0;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT SUM(Team1_Attacked_A_Success) from `match` where Team1 = @team1 AND Map = @map1";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team1", teamId);
+                    command.Parameters.AddWithValue("map1", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    command.CommandText = "SELECT SUM(Team2_Attacked_A_Success) from `match` where Team2 = @team2 AND Map = @map2";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team2", teamId);
+                    command.Parameters.AddWithValue("@map2", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return amount;
+        }
+
+        public int SelectAttackedOnBSuccess(int teamId, int mapId)
+        {
+            int amount = 0;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT SUM(Team1_Attacked_B_Success) from `match` where Team1 = @team1 AND Map = @map1";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team1", teamId);
+                    command.Parameters.AddWithValue("map1", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    command.CommandText = "SELECT SUM(Team2_Attacked_B_Success) from `match` where Team2 = @team2 AND Map = @map2";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team2", teamId);
+                    command.Parameters.AddWithValue("@map2", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return amount;
+        }
+
+        public int SelectRetakeOnASuccess(int teamId, int mapId)
+        {
+            int amount = 0;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT SUM(Team1_Retake_A_Success) from `match` where Team1 = @team1 AND Map = @map1";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team1", teamId);
+                    command.Parameters.AddWithValue("map1", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    command.CommandText = "SELECT SUM(Team2_Retake_A_Success) from `match` where Team2 = @team2 AND Map = @map2";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team2", teamId);
+                    command.Parameters.AddWithValue("@map2", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return amount;
+        }
+
+        public int SelectRetakeOnBSuccess(int teamId, int mapId)
+        {
+            int amount = 0;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT SUM(Team1_Retake_B_Success) from `match` where Team1 = @team1 AND Map = @map1";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team1", teamId);
+                    command.Parameters.AddWithValue("map1", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    command.CommandText = "SELECT SUM(Team2_Retake_B_Success) from `match` where Team2 = @team2 AND Map = @map2";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@team2", teamId);
+                    command.Parameters.AddWithValue("@map2", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            if(!reader.IsDBNull(0))
+                            {
+                                amount += reader.GetInt32(0);
+                            }
+                        }
+                    }
+                }
+            }
+            return amount;
+        }
     }
 }

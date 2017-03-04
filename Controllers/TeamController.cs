@@ -31,7 +31,21 @@ namespace CSGO_Event_Recorder.Controllers
         public IActionResult Details(int id)
         {
             ViewBag.TeamDetail = DBConnector.Instance.SelectTeamFromId(id);
-            ViewBag.AllMaps = DBConnector.Instance.SelectAllMaps();
+            var allMaps = DBConnector.Instance.SelectAllMaps().ToArray();
+            int[,] mapsInfo = new int[allMaps.Count(), 6];
+
+            for(var i = 0; i < allMaps.Length; i++)
+            {
+                mapsInfo[i,0] = DBConnector.Instance.SelectAttackedOnA(id, allMaps[i].Id);
+                mapsInfo[i,1] = DBConnector.Instance.SelectAttackedOnASuccess(id, allMaps[i].Id);
+                mapsInfo[i,2] = DBConnector.Instance.SelectAttackedOnB(id, allMaps[i].Id);
+                mapsInfo[i,3] = DBConnector.Instance.SelectAttackedOnBSuccess(id, allMaps[i].Id);
+                mapsInfo[i,4] = DBConnector.Instance.SelectRetakeOnASuccess(id, allMaps[i].Id);
+                mapsInfo[i,5] = DBConnector.Instance.SelectRetakeOnBSuccess(id, allMaps[i].Id);
+            }
+
+            ViewBag.AllMaps = allMaps;
+            ViewBag.MapsInfo = mapsInfo;
 
             return View();
         }
