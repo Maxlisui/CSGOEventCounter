@@ -19,6 +19,28 @@ namespace CSGO_Event_Recorder.Controllers
             return View("New");
         }
 
+        public IActionResult NewGame()
+        {
+            ViewBag.AllMaps = DBConnector.Instance.SelectAllMaps();
+            ViewBag.AllTeams = DBConnector.Instance.SelectAllTeams();
+            return View("NewGame");
+        }
+
+        public IActionResult Game(int map, int team1, int team2)
+        {
+            if(team1 == team2)
+            {
+                ViewBag.Message = "No 2 Teams";
+                return NewGame();
+            }
+            ViewBag.Message = null;
+            ViewBag.CurrentMap = DBConnector.Instance.SelectMapFromId(map);
+            ViewBag.Team1 = DBConnector.Instance.SelectTeamFromId(team1);
+            ViewBag.Team2 = DBConnector.Instance.SelectTeamFromId(team2);
+            
+            return View();
+        }
+
         public IActionResult Add(string name, string date, string venue, string organizer)
         {
             if(!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(date) && !string.IsNullOrEmpty(venue) )

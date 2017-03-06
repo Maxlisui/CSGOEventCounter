@@ -604,5 +604,36 @@ namespace CSGO_Event_Recorder.Model
             }
             return amount;
         }
+
+        public Map SelectMapFromId(int mapId)
+        {
+            Map map = null;
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT * FROM map where Id = @mapId";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@mapId", mapId);
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            map = new Map()
+                            {
+                                Id = reader.GetInt32("Id"),
+                                Name = reader.GetString("Name")
+                            };
+                        }
+                    }
+                }
+            }
+            return map;
+        }
     }
 }

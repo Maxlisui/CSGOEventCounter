@@ -1,0 +1,155 @@
+@{
+    Layout = null;
+    var team1 = ViewBag.Team1;
+    var team2 = ViewBag.Team2;
+    var map = ViewBag.CurrentMap;
+}
+<html>
+<head>
+    <title>New Game</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous">
+    <script src="@Url.Content("~/js/game.js")"></script>
+</head>
+<body>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Game between @team1.Name and @team2.Name on @map.Name</h1>
+                <h3 id="score">Score: 0 - 0</h3>
+                <p id="scoreTeam1" name="scoreTeam1" hidden></p>
+                <p id="scoreTeam2" name="scoreTeam2" hidden></p>
+                @using(Html.BeginForm("FinishGame", "Event", FormMethod.Post, new { @class="form-horizontal" }))
+                {
+                    <div class="col-lg-6">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@team1.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Attacked A site:</span>
+                                        <input type="text" id="team1attckedA" name="team1attckedA" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team1attckedA')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Attacked B site:</span>
+                                        <input type="text" id="team1attackedB" name="team1attackedB" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team1attackedB')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Attacked successfully A site:</span>
+                                        <input type="text" id="team1attackedAsuccess" name="team1attackedAsuccess" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team1attackedAsuccess')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Attacked successfully B site:</span>
+                                        <input type="text" id="team1attckedBsuccess" name="team1attckedBsuccess" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team1attckedBsuccess')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Retake A site:</span>
+                                        <input type="text" id="team1retakeA" name="team1retakeA" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team1retakeA')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Retake B site:</span>
+                                        <input type="text" id="team1retakeB" name="team1retakeB" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team1retakeB')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@team2.Name</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Attacked A site:</span>
+                                        <input type="text" id="team2attckedA" name="team2attckedA" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team2attckedA')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Attacked B site:</span>
+                                        <input type="text" id="team2attackedB" name="team2attackedB" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team2attackedB')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Attacked successfully A site:</span>
+                                        <input type="text" id="team2attackedAsuccess" name="team2attackedAsuccess" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team2attackedAsuccess')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Attacked successfully B site:</span>
+                                        <input type="text" id="team2attckedBsuccess" name="team2attckedBsuccess" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team2attckedBsuccess')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Retake A site:</span>
+                                        <input type="text" id="team2retakeA" name="team2retakeA" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team2retakeA')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <span class="input-group-addon">Retake B site:</span>
+                                        <input type="text" id="team2retakeB" name="team1retakeB" value="0" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="increaseValue('team2retakeB')" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
