@@ -635,5 +635,66 @@ namespace CSGO_Event_Recorder.Model
             }
             return map;
         }
+
+        public List<Match> SelectALlMatches()
+        {
+            List<Match> matches = new List<Match>();
+
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "SELECT * FROM `match`";
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            matches.Add(new Match(){
+                                Id = reader.GetInt32("Id")
+                            });
+                        }
+                    }
+                }
+            }
+            return matches;
+        }
+
+        public void InsertNewmatch(Match m)
+        {
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "INSERT INTO `match` VALUES(@id, @mapId, @team1, @team2, @team1Score, @team2Score, @team1AttackedA, @team1AttackedB, @team1AttackedASuccess, @team1AttackedBSuccess, @team2AttackedA, @team2AttackedB, @team2AttackedASuccess, @team2AttackedBSuccess, @team1RetakeASuccess, @team1RetakeBSuccess, @team2RetakeASuccess, @team2RetakeBSuccess)";
+                    command.Prepare();
+
+                    command.Parameters.AddWithValue("@id", SelectALlMatches().Count + 1);
+                    command.Parameters.AddWithValue("@mapId", m.Map);
+                    command.Parameters.AddWithValue("@team1", m.Team1);
+                    command.Parameters.AddWithValue("@team2", m.Team2);
+                    command.Parameters.AddWithValue("@team1Score", m.Team1Score);
+                    command.Parameters.AddWithValue("@team2Score", m.Team2Score);
+                    command.Parameters.AddWithValue("@team1AttackedA", m.Team1AttackedA);
+                    command.Parameters.AddWithValue("@team1AttackedB", m.Team1AttackedB);
+                    command.Parameters.AddWithValue("@team1AttackedASuccess", m.Team1AttackedASuccess);
+                    command.Parameters.AddWithValue("@team1AttackedBSuccess", m.Team1AttackedBSuccess);
+                    command.Parameters.AddWithValue("@team2AttackedA", m.Team1AttackedA);
+                    command.Parameters.AddWithValue("@team2AttackedB", m.Team1AttackedB);
+                    command.Parameters.AddWithValue("@team2AttackedASuccess", m.Team1AttackedASuccess);
+                    command.Parameters.AddWithValue("@team2AttackedBSuccess", m.Team1AttackedBSuccess);
+                    command.Parameters.AddWithValue("@team1RetakeASuccess", m.Team1RetakeASuccess);
+                    command.Parameters.AddWithValue("@team1RetakeBSuccess", m.Team1RetakeBSuccess);
+                    command.Parameters.AddWithValue("@team2RetakeASuccess", m.Team2RetakeASuccess);
+                    command.Parameters.AddWithValue("@team2RetakeBSuccess", m.Team2RetakeBSuccess);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

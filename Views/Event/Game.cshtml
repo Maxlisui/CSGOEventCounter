@@ -17,8 +17,6 @@
             <div class="col-lg-12">
                 <h1>Game between @team1.Name and @team2.Name on @map.Name</h1>
                 <h3 id="score">Score: 0 - 0</h3>
-                <p id="scoreTeam1" name="scoreTeam1" hidden></p>
-                <p id="scoreTeam2" name="scoreTeam2" hidden></p>
                 @using(Html.BeginForm("FinishGame", "Event", FormMethod.Post, new { @class="form-horizontal" }))
                 {
                     <div class="col-lg-6">
@@ -138,13 +136,25 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                     <span class="input-group-addon">Retake B site:</span>
-                                        <input type="text" id="team2retakeB" name="team1retakeB" value="0" class="form-control">
+                                        <input type="text" id="team2retakeB" name="team2retakeB" value="0" class="form-control">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" onclick="increaseValue('team2retakeB')" type="button">Add</button>
                                         </span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <input name="eventId" value="@ViewBag.CurrentEvent" hidden>
+                            <input id="scoreTeam1" name="scoreTeam1" value="0" hidden>
+                            <input id="scoreTeam2" name="scoreTeam2" value="0" hidden>
+                            <input name="team1Id" value="@team1.Id" hidden>
+                            <input name="team2Id" value="@team2.Id" hidden>
+                            <input name="mapId" value="@map.Id" hidden>
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 }

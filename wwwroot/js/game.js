@@ -3,7 +3,7 @@ var team2Score = 0;
 
 function increaseValue(id)
 {
-    document.getElementById(id).value++;
+    document.getElementById(id).setAttribute('value', document.getElementById(id).value++);
 
     if(id === 'team1attackedAsuccess' || id === 'team1attckedBsuccess' || id === 'team1retakeB' || id === 'team1retakeA'){
         team1Score++;
@@ -13,6 +13,6 @@ function increaseValue(id)
     }
 
     document.getElementById("score").innerHTML = "Score: " + team1Score + " - " + team2Score;
-    document.getElementById("scoreTeam1").innerHTML = team1Score;
-    document.getElementById("scoreTeam2").innerHTML = team2Score;
+    document.getElementById("scoreTeam1").setAttribute('value', team1Score);
+    document.getElementById("scoreTeam2").setAttribute('value', team2Score);
 }
