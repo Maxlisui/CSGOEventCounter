@@ -696,5 +696,37 @@ namespace CSGO_Event_Recorder.Model
                 }
             }
         }
+
+        public List<Statistic> SelectStatisticsFromName(string name)
+        {
+            List<Statistic> statistics = new List<Statistic>();
+            using(var con = new MySqlConnection(_CONNECTIONSTRING))
+            {
+                using(var command = new MySqlCommand("", con))
+                {
+                    con.Open();
+
+                    command.CommandText = "select team1.Name as Team1_Name, team2.Name as Team2_Name, Team1_Score, Team2_Score, ev.Name as Event_Name from `match` as ma join Team as team1 on (ma.Team1 = team1.Id) join Team as team2 on (team2.ID = ma.Team2) join match_on_event as moe on (moe.MatchID = ma.ID) join event as ev on (ev.Id = moe.MatchId) where team1.Name LIKE @name1 OR team2.Name LIKE @name2)";
+                    command.Prepare();
+                    
+                    command.Parameters.AddWithValue("@name1", "%" + name + "%");
+                    command.Parameters.AddWithValue("@name2", "%" + name + "%");
+
+                    using(MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            statistics.Add(new Statistic(){
+                                Team1 = reader.GetString("Team1_Name"),
+                                Team2 = reader.GetString("Team2_Name"),
+                                Score = reader.GetInt32("Team1_Score").ToString() + " - " + reader.GetInt32("Team1_Score").ToString(),
+                                Event = reader.GetString("Event_Name")
+                            });
+                        }
+                    }
+                }
+            }
+            return statistics;
+        }
     }
 }

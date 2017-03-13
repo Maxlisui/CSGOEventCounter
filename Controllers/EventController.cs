@@ -68,9 +68,8 @@ namespace CSGO_Event_Recorder.Controllers
                 Team2RetakeASuccess = team2retakeA,
                 Team2RetakeBSuccess = team2retakeB
             };
-
             DBConnector.Instance.InsertNewmatch(match);
-
+            
             return Index(eventId);
         }
 

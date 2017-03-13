@@ -49,5 +49,15 @@ namespace CSGO_Event_Recorder.Controllers
 
             return View();
         }
+
+        public IActionResult Statistics()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateStatistics(string name)
+        {
+            return Json(DBConnector.Instance.SelectStatisticsFromName(name));
+        }
     }
 }
