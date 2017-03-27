@@ -52,7 +52,13 @@ namespace CSGO_Event_Recorder.Controllers
 
         public IActionResult Statistics()
         {
+            ViewBag.Statistics = DBConnector.Instance.SelectAllStatistics();
             return View();
+        }
+
+        public IActionResult UpdateAllStatistics()
+        {
+            return Json(DBConnector.Instance.SelectAllStatistics());
         }
 
         public IActionResult UpdateStatistics(string name)
